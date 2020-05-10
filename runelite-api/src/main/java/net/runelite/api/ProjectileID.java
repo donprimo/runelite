@@ -71,6 +71,17 @@ public class ProjectileID
 	public static final int DEMONIC_GORILLA_MAGIC = 1304;
 	public static final int DEMONIC_GORILLA_BOULDER = 856;
 
+	public static final int OLM_FALLING_CRYSTAL = 1357;
+	public static final int OLM_BURNING = 1349;
+	public static final int OLM_FALLING_CRYSTAL_TRAIL = 1352;
+	public static final int OLM_ACID_TRAIL = 1354;
+	public static final int OLM_FIRE_LINE = 1347;
+	public static final int OLM_MAGE_ATTACK = 1339;
+	public static final int OLM_RANGE_ATTACK = 1340;
+
+	public static final int OLM_TELEPORT = 1359;
+	public static final int OLM_HEAL = 1363;
+
 	/**
 	 * missing: marble gargoyle, superior dark beast
 	 */
@@ -84,4 +95,12 @@ public class ProjectileID
 	public static final int VORKATH_PRAYER_DISABLE = 1471;
 	public static final int VORKATH_VENOM = 1470;
 	public static final int VORKATH_ICE = 350;
+
+
+	public static final int HYDRA_MAGIC = 1662;
+	public static final int HYDRA_RANGED = 1663;
+	public static final int HYDRA_POISON = 1644;
+	public static final int HYDRA_LIGHTNING = 1664;
+	public static final int HYDRA_LIGHTNING_2 = 1665;
+	public static final int DRAKE_BREATH = 1637;
 }
