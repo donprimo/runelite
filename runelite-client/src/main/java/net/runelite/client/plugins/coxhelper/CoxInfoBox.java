@@ -31,7 +31,10 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import net.runelite.api.Actor;
 import net.runelite.api.Client;
+import net.runelite.api.NPCComposition;
+import net.runelite.client.plugins.coxhelper.NPCContainer;
 import net.runelite.api.NpcID;
 import net.runelite.api.SpriteID;
 import net.runelite.client.game.SpriteManager;
@@ -102,39 +105,6 @@ public class CoxInfoBox extends Overlay
 				plugin.setPrayAgainstOlm(null);
 			}
 
-			if (plugin.isVangHealth() && plugin.getVanguards() > 0)
-			{
-				panelComponent.getChildren().add(TitleComponent.builder()
-					.text("Vanguards")
-					.color(Color.pink)
-					.build());
-
-				TableComponent tableComponent = new TableComponent();
-				tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
-				for (NPCContainer npcs : plugin.getNpcContainer().values())
-				{
-					float percent = (float) npcs.getNpc().getHealthRatio() / npcs.getNpc().getHealth() * 100;
-					switch (npcs.getNpc().getId())
-					{
-						case NpcID.VANGUARD_7527:
-							tableComponent.addRow(ColorUtil.prependColorTag("Melee", npcs.getAttackStyle().getColor()),
-								Integer.toString((int) percent));
-							break;
-						case NpcID.VANGUARD_7528:
-							tableComponent.addRow(ColorUtil.prependColorTag("Range", npcs.getAttackStyle().getColor()),
-								Integer.toString((int) percent));
-							break;
-						case NpcID.VANGUARD_7529:
-							tableComponent.addRow(ColorUtil.prependColorTag("Mage", npcs.getAttackStyle().getColor()),
-								Integer.toString((int) percent));
-							break;
-					}
-				}
-
-				panelComponent.getChildren().add(tableComponent);
-
-				return panelComponent.render(graphics);
-			}
 		}
 		if (client.getLocalPlayer().getWorldLocation().getRegionID() == 4919)
 		{
