@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, TheStonedTurtle <https://github.com/TheStonedTurtle>
+ * Copyright (c) 2019, winterdaze
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,22 +22,53 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.loottracker;
+package net.runelite.client.plugins.timers;
 
+import lombok.Getter;
+import net.runelite.client.ui.overlay.infobox.InfoBox;
+import java.awt.image.BufferedImage;
+import java.awt.Color;
+import java.time.Duration;
 import java.time.Instant;
-import java.util.Collection;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class LootRecord
+@Getter
+class ElapsedTimer extends InfoBox
 {
-	private String eventId;
-	private LootRecordType type;
-	private Object metadata;
-	private Collection<GameItem> drops;
-	private Instant time;
+	private final Instant startTime;
+	private final Instant lastTime;
+
+	// Creates a timer that counts up if lastTime is null, or a paused timer if lastTime is defined
+	ElapsedTimer(BufferedImage image, TimersPlugin plugin, Instant startTime, Instant lastTime)
+	{
+		super(image, plugin);
+		this.startTime = startTime;
+		this.lastTime = lastTime;
+	}
+
+	@Override
+	public String getText()
+	{
+		if (startTime == null)
+		{
+			return null;
+		}
+
+		Duration time = Duration.between(startTime, lastTime == null ? Instant.now() : lastTime);
+		final String formatString = time.toHours() > 0 ? "HH:mm" : "mm:ss";
+		return DurationFormatUtils.formatDuration(time.toMillis(), formatString, true);
+	}
+
+	@Override
+	public Color getTextColor()
+	{
+		return Color.WHITE;
+	}
+
+	@Override
+	public String getTooltip()
+	{
+		Duration time = Duration.between(startTime, lastTime == null ? Instant.now() : lastTime);
+		return "Elapsed time: " +  DurationFormatUtils.formatDuration(time.toMillis(), "HH:mm:ss", true);
+	}
 }
